@@ -8,7 +8,6 @@ import lombok.Data;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * 用户表
@@ -52,30 +51,6 @@ public class SysUser implements Serializable {
     @TableField(value = "email")
     private String email;
 
-    /**
-     * 插入时间
-     */
-    @TableField(value = "created_time")
-    private Date createdTime;
-
-    /**
-     * 插入人
-     */
-    @TableField(value = "created_user")
-    private String createdUser;
-
-    /**
-     * 更新时间
-     */
-    @TableField(value = "updated_time")
-    private Date updatedTime;
-
-    /**
-     * 更新人
-     */
-    @TableField(value = "updated_user")
-    private String updatedUser;
-
     @Serial
     private static final long serialVersionUID = 1L;
 
@@ -91,11 +66,4 @@ public class SysUser implements Serializable {
 
     public static final String COL_EMAIL = "email";
 
-    public static final String COL_CREATED_TIME = "created_time";
-
-    public static final String COL_CREATED_USER = "created_user";
-
-    public static final String COL_UPDATED_TIME = "updated_time";
-
-    public static final String COL_UPDATED_USER = "updated_user";
 }

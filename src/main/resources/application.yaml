@@ -5,10 +5,6 @@ spring:
     username: root
     password: 123456
 
-#  data:
-#    redis:
-#      host: 127.0.0.1
-#      port: 6379
   redis:
     redisson:
       config: |
@@ -43,3 +39,9 @@ mybatis-plus:
 jwt:
   key: reservation-server
   timeout: 12
+
+minio:
+  host: http://127.0.0.1:39000
+  ak: 2ftPDdhsYbfQ7Bzd
+  sk: gWGN9eru1kpCuCaMEIlDoW3XLuYx1D1A
+  bucket: reservation
