@@ -1,6 +1,8 @@
 package com.reservation.util;
 
 import com.reservation.config.MinioConfig;
+import io.minio.GetObjectArgs;
+import io.minio.GetObjectResponse;
 import io.minio.GetPresignedObjectUrlArgs;
 import io.minio.http.Method;
 
@@ -15,7 +17,18 @@ public class MinioUtils {
                         .bucket(MinioConfig.getBucket())
                         .object(key)
                         .method(Method.GET)
-                        .expiry(1, TimeUnit.HOURS)
+                        .expiry(MinioConfig.getTimeout(), TimeUnit.HOURS)
                         .build());
+    }
+
+    public static GetObjectResponse downloadFile(String key) throws Exception {
+        return MinioConfig.getClient().getObject(
+                GetObjectArgs
+                        .builder()
+                        .bucket(MinioConfig.getBucket())
+                        .object(key)
+                        .build());
+
+
     }
 }

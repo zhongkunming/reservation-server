@@ -29,7 +29,7 @@ public class AuthInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         ContextHolder.clear();
-        log.info("当前请求URI: [{}], 请求类型: [{}]", request.getRequestURI(), request.getContentType());
+
         String token = request.getHeader(AuthCommons.TOKEN_HEADER);
         if (StrUtil.isEmpty(token)) {
             throw new AppException("Token失效");

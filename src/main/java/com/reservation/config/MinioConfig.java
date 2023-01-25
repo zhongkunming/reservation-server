@@ -20,6 +20,8 @@ public class MinioConfig {
 
     private static String bucket;
 
+    private static int timeout;
+
     private static MinioClient client;
 
     @Value("${minio.host}")
@@ -58,6 +60,11 @@ public class MinioConfig {
         }
     }
 
+    @Value("${minio.timeout}")
+    public void setTimeout(int timeout) {
+        MinioConfig.timeout = timeout;
+    }
+
     private static void build() {
         if (Objects.isNull(client)) {
             MinioConfig.client = MinioClient.builder()
@@ -73,5 +80,9 @@ public class MinioConfig {
 
     public static MinioClient getClient() {
         return client;
+    }
+
+    public static int getTimeout() {
+        return timeout;
     }
 }

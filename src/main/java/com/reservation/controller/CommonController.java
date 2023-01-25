@@ -5,12 +5,15 @@ import com.reservation.dto.common.CommonPictureResDTO;
 import com.reservation.dto.common.CommonPictureRespDTO;
 import com.reservation.service.CommonService;
 import jakarta.annotation.Resource;
+import jakarta.validation.constraints.NotBlank;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Slf4j
@@ -22,9 +25,14 @@ public class CommonController {
     private CommonService commonService;
 
     @ResponseBody
-    @PostMapping("picture")
-    public JsonResult<CommonPictureRespDTO> picture(@RequestBody @Validated CommonPictureResDTO dto) {
-        return JsonResult.ok(commonService.picture(dto));
+    @PostMapping("/picture/link")
+    public JsonResult<CommonPictureRespDTO> pictureLink(@RequestBody @Validated CommonPictureResDTO dto) {
+        return JsonResult.ok(commonService.pictureLink(dto));
+    }
+
+    @GetMapping("/picture/d")
+    public void pictureDirect(@RequestParam("key") @Validated @NotBlank(message = "文件key为空") String key) {
+        commonService.pictureDirect(key);
     }
 
 }

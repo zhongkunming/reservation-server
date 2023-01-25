@@ -5,5 +5,7 @@ import com.reservation.dto.common.CommonPictureRespDTO;
 
 public interface CommonService {
 
-    CommonPictureRespDTO picture(CommonPictureResDTO dto);
+    CommonPictureRespDTO pictureLink(CommonPictureResDTO dto);
+
+    void pictureDirect(String key);
 }

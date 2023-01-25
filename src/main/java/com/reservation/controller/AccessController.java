@@ -5,7 +5,6 @@ import com.reservation.dto.access.AccessLoginResDTO;
 import com.reservation.dto.access.AccessLoginRespDTO;
 import com.reservation.service.AccessService;
 import jakarta.annotation.Resource;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

@@ -45,3 +45,4 @@ minio:
   ak: 2ftPDdhsYbfQ7Bzd
   sk: gWGN9eru1kpCuCaMEIlDoW3XLuYx1D1A
   bucket: reservation
+  timeout: 1
