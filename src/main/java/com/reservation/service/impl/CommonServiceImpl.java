@@ -26,20 +26,19 @@ import java.util.Objects;
 @Service
 public class CommonServiceImpl implements CommonService {
 
-    private final static String PROFILE_PICTURE_PREFIX = "profile_picture:";
-
     @Resource
     private SysContentMapMapper sysContentMapMapper;
 
     @Override
     public CommonPictureRespDTO pictureLink(CommonPictureResDTO dto) {
         String key = dto.getKey();
-//        if (StrUtil.startWith(key, PROFILE_PICTURE_PREFIX)) {
-//            key = StrUtil.subAfter(key, PROFILE_PICTURE_PREFIX, true);
-//        }
+        SysContentMap sysContentMap = sysContentMapMapper.selectById(key);
+        if (Objects.isNull(sysContentMap)) {
+            throw new AppException("文件不存在");
+        }
         String link;
         try {
-            link = MinioUtils.getShareLink(key);
+            link = MinioUtils.getShareLink(sysContentMap.getCrid());
         } catch (Exception e) {
             throw new AppException("文件已失效");
         }
@@ -50,11 +49,6 @@ public class CommonServiceImpl implements CommonService {
 
     @Override
     public void pictureDirect(String key) {
-
-//        if (StrUtil.startWith(key, PROFILE_PICTURE_PREFIX)) {
-//            key = StrUtil.subAfter(key, PROFILE_PICTURE_PREFIX, true);
-//        }
-
         SysContentMap sysContentMap = sysContentMapMapper.selectById(key);
         if (Objects.isNull(sysContentMap)) {
             throw new AppException("文件不存在");
@@ -63,7 +57,7 @@ public class CommonServiceImpl implements CommonService {
 
         ServletRequestAttributes sra = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         ServletOutputStream os = null;
-        try (GetObjectResponse fis = MinioUtils.downloadFile(key)) {
+        try (GetObjectResponse fis = MinioUtils.downloadFile(sysContentMap.getCrid())) {
             HttpServletResponse response = Objects.requireNonNull(sra).getResponse();
             HttpServletRequest request = Objects.requireNonNull(sra).getRequest();
 

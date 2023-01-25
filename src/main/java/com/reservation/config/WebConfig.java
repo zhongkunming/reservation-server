@@ -13,8 +13,7 @@ import java.util.List;
 public class WebConfig implements WebMvcConfigurer {
 
     private final static List<String> IGNORE_URI = Lists.newArrayList(
-            "/access/login",
-            "/common/**");
+            "/access/login");
 
     @Resource
     private AuthInterceptor authInterceptor;
