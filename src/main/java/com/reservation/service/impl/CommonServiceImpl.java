@@ -60,9 +60,7 @@ public class CommonServiceImpl implements CommonService {
         try (GetObjectResponse fis = MinioUtils.downloadFile(sysContentMap.getCrid())) {
             HttpServletResponse response = Objects.requireNonNull(sra).getResponse();
             HttpServletRequest request = Objects.requireNonNull(sra).getRequest();
-
             os = Objects.requireNonNull(response).getOutputStream();
-
             String userAgent = request.getHeader("User-Agent");
             if (userAgent.toUpperCase().contains("MSIE") || userAgent.contains("Trident/7.0")) {
                 filename = URLEncoder.encode(filename, StandardCharsets.UTF_8);
@@ -76,7 +74,6 @@ public class CommonServiceImpl implements CommonService {
             response.setHeader("Content-Length", "-1");
             response.setHeader("Content-Encoding", StandardCharsets.UTF_8.name());
             response.setHeader("Content-Disposition", "attachment;filename=" + filename + "");
-
             IoUtil.copy(fis, os);
         } catch (Exception e) {
             throw new AppException("文件已失效");

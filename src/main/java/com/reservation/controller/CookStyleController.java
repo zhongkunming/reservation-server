@@ -2,6 +2,7 @@ package com.reservation.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.reservation.common.JsonResult;
+import com.reservation.dto.cook.style.CookStyleAddResDTO;
 import com.reservation.dto.cook.style.CookStyleListResDTO;
 import com.reservation.model.UsrCookStyle;
 import com.reservation.service.CookStyleService;
@@ -24,5 +25,9 @@ public class CookStyleController {
         return JsonResult.ok(cookStyleService.list(dto));
     }
 
+    @PostMapping("add")
+    public JsonResult<String> add(@RequestBody @Validated CookStyleAddResDTO dto) {
+        return JsonResult.ok(cookStyleService.add(dto));
+    }
 
 }
