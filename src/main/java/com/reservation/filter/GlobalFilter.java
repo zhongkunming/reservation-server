@@ -17,7 +17,7 @@ import java.io.IOException;
 public class GlobalFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
-        log.info("当前请求URI: [{}], 请求类型: [{}]", request.getRequestURI(), request.getMethod());
+        log.info("请求地址: [{}], 请求类型: [{}]", request.getRequestURI(), request.getMethod());
         chain.doFilter(request, response);
     }
 }
