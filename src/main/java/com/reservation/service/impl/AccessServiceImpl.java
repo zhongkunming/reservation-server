@@ -40,7 +40,7 @@ public class AccessServiceImpl implements AccessService {
     @Override
     public AccessLoginRespDTO login(AccessLoginResDTO dto) {
         QueryWrapper<SysUser> wrapper = new QueryWrapper<>();
-        wrapper.eq(SysUser.COL_USERNAME, dto.getUsername());
+        wrapper.eq(SysUser.COL_USERNAME, dto.getUserName());
         SysUser sysUser = sysUserMapper.selectOne(wrapper);
 
         if (Objects.isNull(sysUser)) {
@@ -59,7 +59,7 @@ public class AccessServiceImpl implements AccessService {
 
         RBucket<Map<String, Object>> bucket = redissonClient.getBucket(AuthCommons.TOKEN_LOGIN_REDIS_PREFIX + token);
         map.put("token", token);
-        map.put(SysUser.COL_USERNAME, sysUser.getUsername());
+        map.put(SysUser.COL_USERNAME, sysUser.getUserName());
         map.put(SysUser.COL_NICK_NAME, sysUser.getNickName());
         map.put(SysUser.COL_PROFILE_PICTURE, sysUser.getProfilePicture());
         map.put(SysUser.COL_EMAIL, sysUser.getEmail());

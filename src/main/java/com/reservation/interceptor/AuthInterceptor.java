@@ -3,6 +3,7 @@ package com.reservation.interceptor;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.jwt.JWTUtil;
 import cn.hutool.jwt.signers.HMacJWTSigner;
+import com.github.pagehelper.PageHelper;
 import com.reservation.config.JwtConfig;
 import com.reservation.exception.AppException;
 import jakarta.annotation.Resource;
@@ -29,6 +30,7 @@ public class AuthInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         ContextHolder.clear();
+        PageHelper.clearPage();
 
         String token = request.getHeader(AuthCommons.TOKEN_HEADER);
         if (StrUtil.isEmpty(token)) {
@@ -53,5 +55,6 @@ public class AuthInterceptor implements HandlerInterceptor {
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
         ContextHolder.clear();
+        PageHelper.clearPage();
     }
 }
