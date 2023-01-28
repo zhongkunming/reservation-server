@@ -4,6 +4,8 @@ package com.reservation.controller;
 import com.github.pagehelper.PageInfo;
 import com.reservation.common.JsonResult;
 import com.reservation.dto.sys.user.SysUserAddResDTO;
+import com.reservation.dto.sys.user.SysUserChangeStatusResDTO;
+import com.reservation.dto.sys.user.SysUserEditResDTO;
 import com.reservation.dto.sys.user.SysUserListResDTO;
 import com.reservation.dto.sys.user.SysUserListRespDTO;
 import com.reservation.service.UserService;
@@ -30,7 +32,19 @@ public class UserController {
 
     @PostMapping("add")
     public JsonResult<String> add(@RequestBody @Validated SysUserAddResDTO dto) {
-        return JsonResult.ok(userService.add(dto));
+        userService.add(dto);
+        return JsonResult.ok();
     }
 
+    @PostMapping("edit")
+    public JsonResult<String> edit(@RequestBody @Validated SysUserEditResDTO dto) {
+        userService.edit(dto);
+        return JsonResult.ok();
+    }
+
+    @PostMapping("/change/status")
+    public JsonResult<String> changeStatus(@RequestBody @Validated SysUserChangeStatusResDTO dto) {
+        userService.changeStatus(dto);
+        return JsonResult.ok();
+    }
 }

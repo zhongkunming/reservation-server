@@ -1,5 +1,6 @@
 package com.reservation.service.impl;
 
+import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.digest.DigestUtil;
 import cn.hutool.jwt.JWTUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -74,7 +75,13 @@ public class AccessServiceImpl implements AccessService {
     @Override
     public void logout() {
         Map<String, Object> info = ContextHolder.getUserInfo();
-        String token = (String) info.getOrDefault("token", "0");
+        if (Objects.isNull(info)) {
+            return;
+        }
+        String token = (String) info.get("token");
+        if (StrUtil.isEmpty(token)) {
+            return;
+        }
         RBucket<Map<String, Object>> bucket = redissonClient.getBucket(AuthCommons.TOKEN_LOGIN_REDIS_PREFIX + token);
         bucket.delete();
     }

@@ -12,15 +12,16 @@ import com.reservation.mapper.UsrCookStyleMapper;
 import com.reservation.model.UsrCookStyle;
 import com.reservation.service.CookStyleService;
 import jakarta.annotation.Resource;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class CookStyleServiceImpl implements CookStyleService {
 
-    @Resource
-    private UsrCookStyleMapper usrCookStyleMapper;
+    private final UsrCookStyleMapper usrCookStyleMapper;
 
     @Override
     public PageInfo<UsrCookStyle> list(CookStyleListResDTO dto) {

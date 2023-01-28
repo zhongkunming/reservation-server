@@ -8,5 +8,9 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 public class SysUserListResDTO extends BasePageResDTO {
 
+    private String nickName;
 
+    private String status;
+
+    private String userName;
 }

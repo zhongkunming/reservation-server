@@ -8,6 +8,8 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.reservation.dto.sys.user.SysUserAddResDTO;
+import com.reservation.dto.sys.user.SysUserChangeStatusResDTO;
+import com.reservation.dto.sys.user.SysUserEditResDTO;
 import com.reservation.dto.sys.user.SysUserListResDTO;
 import com.reservation.dto.sys.user.SysUserListRespDTO;
 import com.reservation.exception.AppException;
@@ -20,6 +22,7 @@ import com.reservation.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Objects;
 
@@ -42,7 +45,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String add(SysUserAddResDTO dto) {
+    @Transactional(rollbackFor = Exception.class)
+    public void add(SysUserAddResDTO dto) {
         QueryWrapper<SysUser> wrapper = new QueryWrapper<>();
         wrapper.eq(SysUser.COL_USERNAME, dto.getUserName());
         if (Objects.nonNull(sysUserMapper.selectOne(wrapper))) {
@@ -61,6 +65,32 @@ public class UserServiceImpl implements UserService {
         sysUser.setStatus("00");
         sysUser.setUserId(IdUtil.getSnowflakeNextIdStr());
         sysUserMapper.insert(sysUser);
-        return "OK";
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void edit(SysUserEditResDTO dto) {
+        QueryWrapper<SysUser> wrapper = new QueryWrapper<>();
+        wrapper.eq(SysUser.COL_USERNAME, dto.getUserName());
+        SysUser sysUser = sysUserMapper.selectOne(wrapper);
+        if (Objects.isNull(sysUser)) {
+            throw new AppException("用户" + dto.getUserName() + "不存在");
+        }
+        BeanUtil.copyProperties(dto, sysUser);
+        if (StrUtil.isNotEmpty(dto.getPasswd())) {
+            sysUser.setPasswd(DigestUtil.bcrypt(sysUser.getPasswd()));
+        }
+        sysUserMapper.updateById(sysUser);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void changeStatus(SysUserChangeStatusResDTO dto) {
+        SysUser sysUser = sysUserMapper.selectById(dto.getUserId());
+        if (Objects.isNull(sysUser)) {
+            throw new AppException("用户不存在");
+        }
+        sysUser.setStatus(dto.getStatus());
+        sysUserMapper.updateById(sysUser);
     }
 }

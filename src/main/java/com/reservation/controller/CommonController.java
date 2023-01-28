@@ -4,8 +4,8 @@ import com.reservation.common.JsonResult;
 import com.reservation.dto.common.CommonPictureResDTO;
 import com.reservation.dto.common.CommonPictureRespDTO;
 import com.reservation.service.CommonService;
-import jakarta.annotation.Resource;
 import jakarta.validation.constraints.NotBlank;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,11 +16,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
+@RequiredArgsConstructor
 @RequestMapping("common")
 public class CommonController {
 
-    @Resource
-    private CommonService commonService;
+    private final CommonService commonService;
 
     @ResponseBody
     @PostMapping("/picture/link")
