@@ -46,3 +46,7 @@ minio:
   sk: gWGN9eru1kpCuCaMEIlDoW3XLuYx1D1A
   bucket: reservation
   timeout: 1
+
+pagehelper:
+  auto-dialect: true
+  support-methods-arguments: true

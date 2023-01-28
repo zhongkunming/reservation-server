@@ -4,8 +4,8 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.PageDTO;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.reservation.dto.cook.style.CookStyleAddResDTO;
 import com.reservation.dto.cook.style.CookStyleListResDTO;
 import com.reservation.mapper.UsrCookStyleMapper;
@@ -23,13 +23,10 @@ public class CookStyleServiceImpl implements CookStyleService {
     private UsrCookStyleMapper usrCookStyleMapper;
 
     @Override
-    public IPage<UsrCookStyle> list(CookStyleListResDTO dto) {
+    public PageInfo<UsrCookStyle> list(CookStyleListResDTO dto) {
+        PageHelper.startPage(Integer.parseInt(dto.getPageNo()), Integer.parseInt(dto.getPageSize()));
         QueryWrapper<UsrCookStyle> wrapper = new QueryWrapper<>();
-
-        IPage<UsrCookStyle> page = PageDTO.of(Long.parseLong(dto.getPageNo()), Long.parseLong(dto.getPageSize()));
-        page = usrCookStyleMapper.selectPage(page, wrapper);
-
-        return page;
+        return new PageInfo<>(usrCookStyleMapper.selectList(wrapper));
     }
 
     @Override

@@ -1,6 +1,6 @@
 package com.reservation.controller;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.github.pagehelper.PageInfo;
 import com.reservation.common.JsonResult;
 import com.reservation.dto.cook.style.CookStyleAddResDTO;
 import com.reservation.dto.cook.style.CookStyleListResDTO;
@@ -21,7 +21,7 @@ public class CookStyleController {
     private CookStyleService cookStyleService;
 
     @PostMapping("list")
-    public JsonResult<IPage<UsrCookStyle>> list(@RequestBody @Validated CookStyleListResDTO dto) {
+    public JsonResult<PageInfo<UsrCookStyle>> list(@RequestBody @Validated CookStyleListResDTO dto) {
         return JsonResult.ok(cookStyleService.list(dto));
     }
 

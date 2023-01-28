@@ -7,7 +7,7 @@ import lombok.Data;
 public class AccessLoginResDTO {
 
     @NotBlank(message = "用户名不能为空")
-    private String username;
+    private String userName;
 
     @NotBlank(message = "密码不能为空")
     private String passwd;

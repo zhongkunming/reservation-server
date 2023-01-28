@@ -6,7 +6,6 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
-import java.io.Serial;
 import java.io.Serializable;
 
 /**
@@ -24,8 +23,8 @@ public class SysUser implements Serializable {
     /**
      * 用户名
      */
-    @TableField(value = "username")
-    private String username;
+    @TableField(value = "user_name")
+    private String userName;
 
     /**
      * 登录密码
@@ -51,12 +50,17 @@ public class SysUser implements Serializable {
     @TableField(value = "email")
     private String email;
 
-    @Serial
+    /**
+     * 用户状态
+     */
+    @TableField(value = "status")
+    private String status;
+
     private static final long serialVersionUID = 1L;
 
     public static final String COL_USER_ID = "user_id";
 
-    public static final String COL_USERNAME = "username";
+    public static final String COL_USERNAME = "user_name";
 
     public static final String COL_PASSWD = "passwd";
 
@@ -66,4 +70,5 @@ public class SysUser implements Serializable {
 
     public static final String COL_EMAIL = "email";
 
+    public static final String COL_STATUS = "status";
 }
