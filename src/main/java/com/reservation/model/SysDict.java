@@ -1,24 +1,28 @@
 package com.reservation.model;
 
-import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 import java.io.Serializable;
 
 /**
-    * 字典表
-    */
+ * 字典表
+ */
 @Data
 @TableName(value = "sys_dict")
 public class SysDict implements Serializable {
     /**
      * 字典Key
      */
-    @TableId(value = "dkey", type = IdType.INPUT)
+    @TableField(value = "dkey")
     private String dkey;
+
+    /**
+     * 父key
+     */
+    @TableField(value = "pkey")
+    private String pkey;
 
     /**
      * 字典Value
@@ -30,11 +34,13 @@ public class SysDict implements Serializable {
      * 备注
      */
     @TableField(value = "dintro")
-    private Integer dintro;
+    private String dintro;
 
     private static final long serialVersionUID = 1L;
 
     public static final String COL_DKEY = "dkey";
+
+    public static final String COL_PKEY = "pkey";
 
     public static final String COL_DVALUE = "dvalue";
 

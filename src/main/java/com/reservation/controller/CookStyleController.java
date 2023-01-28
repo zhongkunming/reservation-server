@@ -7,6 +7,7 @@ import com.reservation.dto.cook.style.CookStyleListResDTO;
 import com.reservation.model.UsrCookStyle;
 import com.reservation.service.CookStyleService;
 import jakarta.annotation.Resource;
+import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,11 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/cook/style")
 public class CookStyleController {
 
-    @Resource
-    private CookStyleService cookStyleService;
+    private final CookStyleService cookStyleService;
 
     @PostMapping("list")
     public JsonResult<PageInfo<UsrCookStyle>> list(@RequestBody @Validated CookStyleListResDTO dto) {

@@ -1,9 +1,11 @@
 package com.reservation.mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.reservation.model.SysDict;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 @Mapper
-public interface SysDictMapper extends BaseMapper<SysDict> {
+public interface SysDictMapper {
+
+    SysDict selectById(@Param("key") String key);
 }

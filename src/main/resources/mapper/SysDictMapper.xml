@@ -1,15 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.reservation.mapper.SysDictMapper">
-  <resultMap id="BaseResultMap" type="com.reservation.model.SysDict">
-    <!--@mbg.generated-->
-    <!--@Table sys_dict-->
-    <result column="dkey" jdbcType="VARCHAR" property="dkey" />
-    <result column="dvalue" jdbcType="VARCHAR" property="dvalue" />
-    <result column="dintro" jdbcType="INTEGER" property="dintro" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    <!--@mbg.generated-->
-    dkey, dvalue, dintro
-  </sql>
+
+    <select id="selectById" resultType="com.reservation.model.SysDict">
+        select dkey, pkey, dvalue, dintro from sys_dict where dkey = #{key} and pkey = '0';
+    </select>
 </mapper>
