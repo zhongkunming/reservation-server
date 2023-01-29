@@ -22,7 +22,6 @@ public class RestaurantController {
 
     private final RestaurantService restaurantService;
 
-
     @PostMapping("list")
     public JsonResult<PageInfo<BusRestListRespDTO>> list(@RequestBody @Validated BusRestListResDTO dto) {
         return JsonResult.ok(restaurantService.list(dto));

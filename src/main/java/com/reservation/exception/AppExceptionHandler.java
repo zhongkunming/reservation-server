@@ -21,8 +21,6 @@ public class AppExceptionHandler {
     @ResponseBody
     @ExceptionHandler(value = Exception.class)
     public JsonResult<String> exception(Exception e) {
-        log.error("", e);
-
         String msg;
         if (e instanceof MethodArgumentNotValidException ex) {
             msg = ex.getBindingResult().getAllErrors().stream()
@@ -42,6 +40,7 @@ public class AppExceptionHandler {
         } else {
             log.error("请求地址: [], 发生异常: [{}]", msg);
         }
+        log.error("", e);
         return JsonResult.error(msg);
 
     }
