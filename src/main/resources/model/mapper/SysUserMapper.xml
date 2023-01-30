@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.reservation.model.mapper.SysUserMapper">
+  <resultMap id="BaseResultMap" type="com.reservation.model.SysUser">
+    <!--@mbg.generated-->
+    <!--@Table sys_user-->
+    <result column="id" jdbcType="VARCHAR" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="account" jdbcType="VARCHAR" property="account" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="profile_picture" jdbcType="VARCHAR" property="profilePicture" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="regdate" jdbcType="TIMESTAMP" property="regdate" />
+    <result column="gender" jdbcType="VARCHAR" property="gender" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, `name`, account, `password`, profile_picture, email, regdate, gender, `status`
+  </sql>
+
+</mapper>

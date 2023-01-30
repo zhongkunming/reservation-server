@@ -15,16 +15,18 @@ public class SysUserAddResDTO implements Serializable {
 
 
     @NotBlank(message = "用户名不能为空")
-    private String userName;
+    private String account;
 
     @NotBlank(message = "昵称不能为空")
-    private String nickName;
+    private String name;
 
     private String email;
 
     private String passwd;
 
     private String profilePicture;
+
+    private String gender;
 
     private String status;
 }

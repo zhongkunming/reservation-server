@@ -13,17 +13,45 @@ public class BusRestListRespDTO implements Serializable {
     @Serial
     private static final long serialVersionUID = -786994286121840154L;
 
-    private String rid;
+    private String id;
 
+    /**
+     * 餐馆类别
+     */
+    private String categoryId;
+
+    /**
+     * 餐馆名称
+     */
     private String name;
 
-    private String intro;
+    /**
+     * 简介
+     */
+    private String mark;
 
+    /**
+     * 位置
+     */
+    private String location;
+
+    /**
+     * 经度
+     */
+    private String locationLongitude;
+
+    /**
+     * 纬度
+     */
+    private String locationLatitude;
+
+    /**
+     * 开业时间
+     */
     private Date openDate;
 
-    private String locx;
-
-    private String locy;
-
-    private String loc;
+    /**
+     * 状态
+     */
+    private String status;
 }

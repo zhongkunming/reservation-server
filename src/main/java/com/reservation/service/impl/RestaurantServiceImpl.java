@@ -10,9 +10,9 @@ import com.reservation.dto.bus.rest.BusRestEditResDTO;
 import com.reservation.dto.bus.rest.BusRestListResDTO;
 import com.reservation.dto.bus.rest.BusRestListRespDTO;
 import com.reservation.exception.AppException;
-import com.reservation.mapper.BusRestInfoMapper;
 import com.reservation.mapper.RestaurantMapper;
-import com.reservation.model.BusRestInfo;
+import com.reservation.model.BusRest;
+import com.reservation.model.mapper.BusRestMapper;
 import com.reservation.service.RestaurantService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,7 +25,7 @@ import java.util.Objects;
 @Service
 @RequiredArgsConstructor
 public class RestaurantServiceImpl implements RestaurantService {
-    private final BusRestInfoMapper busRestInfoMapper;
+    private final BusRestMapper busRestMapper;
 
     private final RestaurantMapper restaurantMapper;
 
@@ -37,21 +37,21 @@ public class RestaurantServiceImpl implements RestaurantService {
 
     @Override
     public void add(BusRestAddResDTO dto) {
-        BusRestInfo busRestInfo = new BusRestInfo();
+        BusRest busRestInfo = new BusRest();
         BeanUtil.copyProperties(dto, busRestInfo);
-        busRestInfo.setRid(IdUtil.getSnowflakeNextIdStr());
-        busRestInfoMapper.insert(busRestInfo);
+        busRestInfo.setId(IdUtil.getSnowflakeNextIdStr());
+        busRestMapper.insert(busRestInfo);
     }
 
     @Override
     public void edit(BusRestEditResDTO dto) {
-        QueryWrapper<BusRestInfo> wrapper = new QueryWrapper<>();
-        wrapper.eq(BusRestInfo.COL_RID, dto.getRid());
-        BusRestInfo busRestInfo = busRestInfoMapper.selectOne(wrapper);
+        QueryWrapper<BusRest> wrapper = new QueryWrapper<>();
+        wrapper.eq(BusRest.COL_ID, dto.getId());
+        BusRest busRestInfo = busRestMapper.selectOne(wrapper);
         if (Objects.isNull(busRestInfo)) {
             throw new AppException("餐厅" + dto.getName() + "不存在");
         }
         BeanUtil.copyProperties(dto, busRestInfo);
-        busRestInfoMapper.updateById(busRestInfo);
+        busRestMapper.updateById(busRestInfo);
     }
 }

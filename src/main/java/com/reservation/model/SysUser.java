@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * 用户表
@@ -17,26 +18,26 @@ public class SysUser implements Serializable {
     /**
      * 用户ID
      */
-    @TableId(value = "user_id", type = IdType.INPUT)
-    private String userId;
+    @TableId(value = "id", type = IdType.INPUT)
+    private String id;
 
     /**
      * 用户名
      */
-    @TableField(value = "user_name")
-    private String userName;
+    @TableField(value = "name")
+    private String name;
 
     /**
-     * 登录密码
+     * 账户
      */
-    @TableField(value = "passwd")
-    private String passwd;
+    @TableField(value = "account")
+    private String account;
 
     /**
-     * 昵称
+     * 密码
      */
-    @TableField(value = "nick_name")
-    private String nickName;
+    @TableField(value = "password")
+    private String password;
 
     /**
      * 头像
@@ -51,24 +52,40 @@ public class SysUser implements Serializable {
     private String email;
 
     /**
-     * 用户状态
+     * 注册时间
+     */
+    @TableField(value = "regdate")
+    private Date regdate;
+
+    /**
+     * 性别
+     */
+    @TableField(value = "gender")
+    private String gender;
+
+    /**
+     * 状态
      */
     @TableField(value = "status")
     private String status;
 
     private static final long serialVersionUID = 1L;
 
-    public static final String COL_USER_ID = "user_id";
+    public static final String COL_ID = "id";
 
-    public static final String COL_USERNAME = "user_name";
+    public static final String COL_NAME = "name";
 
-    public static final String COL_PASSWD = "passwd";
+    public static final String COL_ACCOUNT = "account";
 
-    public static final String COL_NICK_NAME = "nick_name";
+    public static final String COL_PASSWORD = "password";
 
     public static final String COL_PROFILE_PICTURE = "profile_picture";
 
     public static final String COL_EMAIL = "email";
+
+    public static final String COL_REGDATE = "regdate";
+
+    public static final String COL_GENDER = "gender";
 
     public static final String COL_STATUS = "status";
 }

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.reservation.model.mapper.BusRestCategoryMapper">
+  <resultMap id="BaseResultMap" type="com.reservation.model.BusRestCategory">
+    <!--@mbg.generated-->
+    <!--@Table bus_rest_category-->
+    <result column="id" jdbcType="VARCHAR" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="order_number" jdbcType="VARCHAR" property="orderNumber" />
+    <result column="mark" jdbcType="VARCHAR" property="mark" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, `name`, order_number, mark
+  </sql>
+</mapper>

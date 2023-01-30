@@ -1,4 +1,4 @@
-package com.reservation.mapper;
+package com.reservation.model.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.reservation.model.SysUser;

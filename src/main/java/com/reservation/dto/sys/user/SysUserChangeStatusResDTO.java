@@ -14,7 +14,7 @@ public class SysUserChangeStatusResDTO implements Serializable {
     private static final long serialVersionUID = -608428995691154547L;
 
     @NotBlank(message = "用户ID不能为空")
-    private String userId;
+    private String account;
 
     @NotBlank(message = "用户状态不能为空")
     private String status;

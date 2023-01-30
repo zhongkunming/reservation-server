@@ -11,8 +11,8 @@ import com.reservation.dto.access.AccessLoginRespDTO;
 import com.reservation.exception.AppException;
 import com.reservation.interceptor.AuthCommons;
 import com.reservation.interceptor.ContextHolder;
-import com.reservation.mapper.SysUserMapper;
 import com.reservation.model.SysUser;
+import com.reservation.model.mapper.SysUserMapper;
 import com.reservation.service.AccessService;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
@@ -41,27 +41,27 @@ public class AccessServiceImpl implements AccessService {
     @Override
     public AccessLoginRespDTO login(AccessLoginResDTO dto) {
         QueryWrapper<SysUser> wrapper = new QueryWrapper<>();
-        wrapper.eq(SysUser.COL_USERNAME, dto.getUserName());
+        wrapper.eq(SysUser.COL_ACCOUNT, dto.getAccount());
         SysUser sysUser = sysUserMapper.selectOne(wrapper);
 
         if (Objects.isNull(sysUser)) {
             throw new AppException("用户不存在");
         }
 
-        boolean flag = DigestUtil.bcryptCheck(dto.getPasswd(), sysUser.getPasswd());
+        boolean flag = DigestUtil.bcryptCheck(dto.getPassword(), sysUser.getPassword());
         if (!flag) {
             throw new AppException("密码错误");
         }
 
         Map<@Nullable String, @Nullable Object> map = Maps.newHashMap();
-        map.put(SysUser.COL_USER_ID, sysUser.getUserId());
+        map.put(SysUser.COL_ID, sysUser.getId());
         map.put("login_time", LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
         String token = JWTUtil.createToken(map, JwtConfig.signer());
 
         RBucket<Map<String, Object>> bucket = redissonClient.getBucket(AuthCommons.TOKEN_LOGIN_REDIS_PREFIX + token);
         map.put("token", token);
-        map.put(SysUser.COL_USERNAME, sysUser.getUserName());
-        map.put(SysUser.COL_NICK_NAME, sysUser.getNickName());
+        map.put(SysUser.COL_ACCOUNT, sysUser.getAccount());
+        map.put(SysUser.COL_NAME, sysUser.getName());
         map.put(SysUser.COL_PROFILE_PICTURE, sysUser.getProfilePicture());
         map.put(SysUser.COL_EMAIL, sysUser.getEmail());
         bucket.set(map, JwtConfig.getTimeout(), TimeUnit.HOURS);
@@ -84,5 +84,9 @@ public class AccessServiceImpl implements AccessService {
         }
         RBucket<Map<String, Object>> bucket = redissonClient.getBucket(AuthCommons.TOKEN_LOGIN_REDIS_PREFIX + token);
         bucket.delete();
+    }
+
+    public static void main(String[] args) {
+        System.out.println(DigestUtil.bcrypt("123456"));
     }
 }

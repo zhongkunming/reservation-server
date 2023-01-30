@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.reservation.model.mapper.BusOrderDetailMapper">
+  <resultMap id="BaseResultMap" type="com.reservation.model.BusOrderDetail">
+    <!--@mbg.generated-->
+    <!--@Table bus_order_detail-->
+    <result column="id" jdbcType="VARCHAR" property="id" />
+    <result column="oid" jdbcType="VARCHAR" property="oid" />
+    <result column="restid" jdbcType="VARCHAR" property="restid" />
+    <result column="fid" jdbcType="VARCHAR" property="fid" />
+    <result column="order_time" jdbcType="TIMESTAMP" property="orderTime" />
+    <result column="eval_star" jdbcType="VARCHAR" property="evalStar" />
+    <result column="eval_time" jdbcType="TIMESTAMP" property="evalTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, oid, restid, fid, order_time, eval_star, eval_time
+  </sql>
+</mapper>

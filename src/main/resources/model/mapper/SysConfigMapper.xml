@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.reservation.model.mapper.SysConfigMapper">
+  <resultMap id="BaseResultMap" type="com.reservation.model.SysConfig">
+    <!--@mbg.generated-->
+    <!--@Table sys_config-->
+    <result column="uid" jdbcType="VARCHAR" property="uid" />
+    <result column="pid" jdbcType="VARCHAR" property="pid" />
+    <result column="id" jdbcType="VARCHAR" property="id" />
+    <result column="value" jdbcType="VARCHAR" property="value" />
+    <result column="mark" jdbcType="VARCHAR" property="mark" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    `uid`, pid, id, `value`, mark
+  </sql>
+</mapper>

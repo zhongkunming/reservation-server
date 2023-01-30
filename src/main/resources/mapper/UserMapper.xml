@@ -4,17 +4,7 @@
 
 
     <select id="list" resultType="com.reservation.dto.sys.user.SysUserListRespDTO">
-        select user_id, user_name, nick_name, profile_picture, email, status from sys_user
-        <where>
-            <if test="dto.userName != null and dto.userName != ''">
-                user_name like concat(#{dto.userName}, '%')
-            </if>
-            <if test="dto.nickName != null and dto.nickName != ''">
-                nick_name like concat('%', #{dto.nickName}, '%')
-            </if>
-            <if test="dto.status != null and dto.status != ''">
-                status = #{dto.status}
-            </if>
-        </where>
+        select *
+        from sys_user
     </select>
 </mapper>

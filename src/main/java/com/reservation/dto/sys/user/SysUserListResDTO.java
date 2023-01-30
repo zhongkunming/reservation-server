@@ -4,13 +4,21 @@ import com.reservation.dto.BasePageResDTO;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.util.Date;
+
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class SysUserListResDTO extends BasePageResDTO {
 
-    private String nickName;
+    private String name;
+
+    private String account;
+
+    private String gender;
 
     private String status;
 
-    private String userName;
+    private Date regdate;
+
+    private String email;
 }

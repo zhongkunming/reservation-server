@@ -14,13 +14,13 @@ public class BusRestEditResDTO implements Serializable {
     private static final long serialVersionUID = -786994286121840154L;
 
     @NotBlank(message = "餐厅ID不能为空")
-    private String rid;
+    private String id;
 
     @NotBlank(message = "餐厅名称不能为空")
     private String name;
 
 
-    private String intro;
+    private String mark;
 
 
     @NotBlank(message = "开业时间不能为空")

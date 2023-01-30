@@ -13,11 +13,11 @@ import com.reservation.dto.sys.user.SysUserEditResDTO;
 import com.reservation.dto.sys.user.SysUserListResDTO;
 import com.reservation.dto.sys.user.SysUserListRespDTO;
 import com.reservation.exception.AppException;
-import com.reservation.mapper.SysDictMapper;
-import com.reservation.mapper.SysUserMapper;
 import com.reservation.mapper.UserMapper;
-import com.reservation.model.SysDict;
+import com.reservation.model.SysConfig;
 import com.reservation.model.SysUser;
+import com.reservation.model.mapper.SysConfigMapper;
+import com.reservation.model.mapper.SysUserMapper;
 import com.reservation.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -35,7 +35,7 @@ public class UserServiceImpl implements UserService {
 
     private final UserMapper userMapper;
 
-    private final SysDictMapper sysDictMapper;
+    private final SysConfigMapper sysConfigMapper;
 
 
     @Override
@@ -48,22 +48,22 @@ public class UserServiceImpl implements UserService {
     @Transactional(rollbackFor = Exception.class)
     public void add(SysUserAddResDTO dto) {
         QueryWrapper<SysUser> wrapper = new QueryWrapper<>();
-        wrapper.eq(SysUser.COL_USERNAME, dto.getUserName());
+        wrapper.eq(SysUser.COL_ACCOUNT, dto.getAccount());
         if (Objects.nonNull(sysUserMapper.selectOne(wrapper))) {
-            throw new AppException("用户" + dto.getUserName() + "已存在");
+            throw new AppException("用户" + dto.getAccount() + "已存在");
         }
         SysUser sysUser = new SysUser();
         BeanUtil.copyProperties(dto, sysUser);
-        if (StrUtil.isEmpty(sysUser.getPasswd())) {
-            SysDict sysDict = sysDictMapper.selectById("sys.default.user.passwd");
-            if (Objects.isNull(sysDict)) {
+        if (StrUtil.isEmpty(sysUser.getPassword())) {
+            SysConfig sysConfig = sysConfigMapper.selectById("0.sys.default.user.passwd");
+            if (Objects.isNull(sysConfig)) {
                 throw new AppException("字典项sys.default.user.passwd为空");
             }
-            sysUser.setPasswd(sysDict.getDvalue());
+            sysUser.setPassword(sysConfig.getValue());
         }
-        sysUser.setPasswd(DigestUtil.bcrypt(sysUser.getPasswd()));
+        sysUser.setPassword(DigestUtil.bcrypt(sysUser.getPassword()));
         sysUser.setStatus("00");
-        sysUser.setUserId(IdUtil.getSnowflakeNextIdStr());
+        sysUser.setId(IdUtil.getSnowflakeNextIdStr());
         sysUserMapper.insert(sysUser);
     }
 
@@ -71,14 +71,14 @@ public class UserServiceImpl implements UserService {
     @Transactional(rollbackFor = Exception.class)
     public void edit(SysUserEditResDTO dto) {
         QueryWrapper<SysUser> wrapper = new QueryWrapper<>();
-        wrapper.eq(SysUser.COL_USERNAME, dto.getUserName());
+        wrapper.eq(SysUser.COL_ACCOUNT, dto.getAccount());
         SysUser sysUser = sysUserMapper.selectOne(wrapper);
         if (Objects.isNull(sysUser)) {
-            throw new AppException("用户" + dto.getUserName() + "不存在");
+            throw new AppException("用户" + dto.getAccount() + "不存在");
         }
         BeanUtil.copyProperties(dto, sysUser);
-        if (StrUtil.isNotEmpty(dto.getPasswd())) {
-            sysUser.setPasswd(DigestUtil.bcrypt(sysUser.getPasswd()));
+        if (StrUtil.isNotEmpty(dto.getPassword())) {
+            sysUser.setPassword(DigestUtil.bcrypt(sysUser.getPassword()));
         }
         sysUserMapper.updateById(sysUser);
     }
@@ -86,7 +86,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void changeStatus(SysUserChangeStatusResDTO dto) {
-        SysUser sysUser = sysUserMapper.selectById(dto.getUserId());
+        SysUser sysUser = sysUserMapper.selectById(dto.getAccount());
         if (Objects.isNull(sysUser)) {
             throw new AppException("用户不存在");
         }

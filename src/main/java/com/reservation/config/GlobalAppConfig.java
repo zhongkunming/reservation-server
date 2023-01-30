@@ -12,9 +12,13 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @Configuration
 @EnableScheduling
 @EnableSpringUtil
-@MapperScan(GlobalAppConfig.MAPPER_SCAN_STRING)
+@MapperScan(basePackages = {
+        GlobalAppConfig.MAPPER_SCAN_STRING,
+        GlobalAppConfig.MAPPER_MODEL_SCAN_STRING
+})
 public class GlobalAppConfig {
     public final static String MAPPER_SCAN_STRING = "com.reservation.mapper";
+    public final static String MAPPER_MODEL_SCAN_STRING = "com.reservation.model.mapper";
 
 //    @Bean
 //    public MybatisPlusInterceptor mybatisPlusInterceptor() {

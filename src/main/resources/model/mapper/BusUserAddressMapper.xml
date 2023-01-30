@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.reservation.model.mapper.BusUserAddressMapper">
+  <resultMap id="BaseResultMap" type="com.reservation.model.BusUserAddress">
+    <!--@mbg.generated-->
+    <!--@Table bus_user_address-->
+    <result column="id" jdbcType="VARCHAR" property="id" />
+    <result column="uid" jdbcType="VARCHAR" property="uid" />
+    <result column="location" jdbcType="VARCHAR" property="location" />
+    <result column="location_longitude" jdbcType="VARCHAR" property="locationLongitude" />
+    <result column="location_latitude" jdbcType="VARCHAR" property="locationLatitude" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, `uid`, `location`, location_longitude, location_latitude, `status`
+  </sql>
+</mapper>

@@ -4,12 +4,11 @@ import cn.hutool.core.io.IoUtil;
 import com.reservation.dto.common.CommonPictureResDTO;
 import com.reservation.dto.common.CommonPictureRespDTO;
 import com.reservation.exception.AppException;
-import com.reservation.mapper.SysContentMapMapper;
-import com.reservation.model.SysContentMap;
+import com.reservation.model.SysContent;
+import com.reservation.model.mapper.SysContentMapper;
 import com.reservation.service.CommonService;
 import com.reservation.util.MinioUtils;
 import io.minio.GetObjectResponse;
-import jakarta.annotation.Resource;
 import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -28,18 +27,18 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class CommonServiceImpl implements CommonService {
 
-    private final SysContentMapMapper sysContentMapMapper;
+    private final SysContentMapper sysContentMapper;
 
     @Override
     public CommonPictureRespDTO pictureLink(CommonPictureResDTO dto) {
         String key = dto.getKey();
-        SysContentMap sysContentMap = sysContentMapMapper.selectById(key);
-        if (Objects.isNull(sysContentMap)) {
+        SysContent sysContent = sysContentMapper.selectById(key);
+        if (Objects.isNull(sysContent)) {
             throw new AppException("文件不存在");
         }
         String link;
         try {
-            link = MinioUtils.getShareLink(sysContentMap.getCrid());
+            link = MinioUtils.getShareLink(sysContent.getCid());
         } catch (Exception e) {
             throw new AppException("文件已失效");
         }
@@ -50,15 +49,15 @@ public class CommonServiceImpl implements CommonService {
 
     @Override
     public void pictureDirect(String key) {
-        SysContentMap sysContentMap = sysContentMapMapper.selectById(key);
-        if (Objects.isNull(sysContentMap)) {
+        SysContent sysContent = sysContentMapper.selectById(key);
+        if (Objects.isNull(sysContent)) {
             throw new AppException("文件不存在");
         }
-        String filename = sysContentMap.getCname();
+        String filename = sysContent.getName();
 
         ServletRequestAttributes sra = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         ServletOutputStream os = null;
-        try (GetObjectResponse fis = MinioUtils.downloadFile(sysContentMap.getCrid())) {
+        try (GetObjectResponse fis = MinioUtils.downloadFile(sysContent.getCid())) {
             HttpServletResponse response = Objects.requireNonNull(sra).getResponse();
             HttpServletRequest request = Objects.requireNonNull(sra).getRequest();
             os = Objects.requireNonNull(response).getOutputStream();
@@ -71,7 +70,7 @@ public class CommonServiceImpl implements CommonService {
                 filename = URLEncoder.encode(filename, StandardCharsets.UTF_8);
             }
 
-            response.setHeader("Content-Type", sysContentMap.getCtype());
+            response.setHeader("Content-Type", sysContent.getType());
             response.setHeader("Content-Length", "-1");
             response.setHeader("Content-Encoding", StandardCharsets.UTF_8.name());
             response.setHeader("Content-Disposition", "attachment;filename=" + filename + "");
