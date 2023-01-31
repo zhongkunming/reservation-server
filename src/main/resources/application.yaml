@@ -31,6 +31,9 @@ spring:
         nettyThreads: 16
         codec: !<org.redisson.codec.JsonJacksonCodec> {}
         transportMode: "NIO"
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
 
 mybatis-plus:
   global-config:
@@ -40,14 +43,14 @@ mybatis-plus:
   mapper-locations: classpath*:/mapper/**/*.xml, classpath*:/model/mapper/**/*.xml
 
 jwt:
-  key: reservation-server
+  key: rest
   timeout: 12
 
 minio:
   host: http://127.0.0.1:39000
   ak: 2ftPDdhsYbfQ7Bzd
   sk: gWGN9eru1kpCuCaMEIlDoW3XLuYx1D1A
-  bucket: reservation
+  bucket: rest-storage
   timeout: 1
 
 pagehelper:

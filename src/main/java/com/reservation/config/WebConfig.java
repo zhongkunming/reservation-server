@@ -2,7 +2,6 @@ package com.reservation.config;
 
 import com.google.common.collect.Lists;
 import com.reservation.interceptor.AuthInterceptor;
-import jakarta.annotation.Resource;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -15,7 +14,8 @@ import java.util.List;
 public class WebConfig implements WebMvcConfigurer {
 
     private final static List<String> IGNORE_URI = Lists.newArrayList(
-            "/access/login");
+            "/access/login",
+            "/common/picture/d");
 
     private final AuthInterceptor authInterceptor;
 

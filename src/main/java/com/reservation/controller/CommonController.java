@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("common")
+@RequestMapping("/common")
 public class CommonController {
 
     private final CommonService commonService;

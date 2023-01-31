@@ -38,6 +38,12 @@
         <appender-ref ref="infoAppender"/>
     </logger>
 
+    <logger name="com.reservation.model.mapper" additivity="false">
+        <level value="DEBUG"/>
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="infoAppender"/>
+    </logger>
+
     <root level="INFO">
         <appender-ref ref="STDOUT"/>
         <appender-ref ref="infoAppender"/>

@@ -4,9 +4,12 @@ package com.reservation.controller;
 import com.github.pagehelper.PageInfo;
 import com.reservation.common.JsonResult;
 import com.reservation.dto.bus.rest.BusRestAddResDTO;
+import com.reservation.dto.bus.rest.BusRestChangeStatusResDTO;
 import com.reservation.dto.bus.rest.BusRestEditResDTO;
 import com.reservation.dto.bus.rest.BusRestListResDTO;
 import com.reservation.dto.bus.rest.BusRestListRespDTO;
+import com.reservation.dto.bus.rest.BusRestShowFoodResDTO;
+import com.reservation.dto.bus.rest.BusRestShowFoodRespDTO;
 import com.reservation.service.RestaurantService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
@@ -37,5 +40,16 @@ public class RestaurantController {
     public JsonResult<String> edit(@RequestBody @Validated BusRestEditResDTO dto) {
         restaurantService.edit(dto);
         return JsonResult.ok();
+    }
+
+    @PostMapping("/changeStatus")
+    public JsonResult<String> changeStatus(@RequestBody @Validated BusRestChangeStatusResDTO dto) {
+        restaurantService.changeStatus(dto);
+        return JsonResult.ok();
+    }
+
+    @PostMapping("/show/food")
+    public JsonResult<PageInfo<BusRestShowFoodRespDTO>> showFood(@RequestBody @Validated BusRestShowFoodResDTO dto) {
+        return JsonResult.ok(restaurantService.showFood(dto));
     }
 }

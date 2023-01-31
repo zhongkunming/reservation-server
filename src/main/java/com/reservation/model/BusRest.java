@@ -34,10 +34,16 @@ public class BusRest implements Serializable {
     private String name;
 
     /**
-     * 简介
+     * 餐馆图片
      */
-    @TableField(value = "mark")
-    private String mark;
+    @TableField(value = "picture")
+    private String picture;
+
+    /**
+     * 餐厅评
+     */
+    @TableField(value = "star")
+    private String star;
 
     /**
      * 位置
@@ -69,6 +75,12 @@ public class BusRest implements Serializable {
     @TableField(value = "status")
     private String status;
 
+    /**
+     * 简介
+     */
+    @TableField(value = "mark")
+    private String mark;
+
     private static final long serialVersionUID = 1L;
 
     public static final String COL_ID = "id";
@@ -77,7 +89,9 @@ public class BusRest implements Serializable {
 
     public static final String COL_NAME = "name";
 
-    public static final String COL_MARK = "mark";
+    public static final String COL_PICTURE = "picture";
+
+    public static final String COL_STAR = "star";
 
     public static final String COL_LOCATION = "location";
 
@@ -88,4 +102,6 @@ public class BusRest implements Serializable {
     public static final String COL_OPEN_DATE = "open_date";
 
     public static final String COL_STATUS = "status";
+
+    public static final String COL_MARK = "mark";
 }

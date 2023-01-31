@@ -35,7 +35,7 @@ public class BusFood implements Serializable {
     /**
      * 名称
      */
-    @TableField(value = "name")
+    @TableField(value = "`name`")
     private String name;
 
     /**

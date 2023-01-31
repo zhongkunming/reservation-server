@@ -2,13 +2,15 @@ package com.reservation.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.IdUtil;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.reservation.dto.bus.rest.BusRestAddResDTO;
+import com.reservation.dto.bus.rest.BusRestChangeStatusResDTO;
 import com.reservation.dto.bus.rest.BusRestEditResDTO;
 import com.reservation.dto.bus.rest.BusRestListResDTO;
 import com.reservation.dto.bus.rest.BusRestListRespDTO;
+import com.reservation.dto.bus.rest.BusRestShowFoodResDTO;
+import com.reservation.dto.bus.rest.BusRestShowFoodRespDTO;
 import com.reservation.exception.AppException;
 import com.reservation.mapper.RestaurantMapper;
 import com.reservation.model.BusRest;
@@ -47,9 +49,25 @@ public class RestaurantServiceImpl implements RestaurantService {
     public void edit(BusRestEditResDTO dto) {
         BusRest busRestInfo = busRestMapper.selectById(dto.getId());
         if (Objects.isNull(busRestInfo)) {
-            throw new AppException("餐厅" + dto.getName() + "不存在");
+            throw new AppException("餐厅: " + dto.getName() + " 不存在");
         }
         BeanUtil.copyProperties(dto, busRestInfo);
         busRestMapper.updateById(busRestInfo);
+    }
+
+    @Override
+    public void changeStatus(BusRestChangeStatusResDTO dto) {
+        BusRest busRestInfo = busRestMapper.selectById(dto.getId());
+        if (Objects.isNull(busRestInfo)) {
+            throw new AppException("餐厅: " + dto.getId() + " 不存在");
+        }
+        busRestInfo.setStatus(dto.getStatus());
+        busRestMapper.updateById(busRestInfo);
+    }
+
+    @Override
+    public PageInfo<BusRestShowFoodRespDTO> showFood(BusRestShowFoodResDTO dto) {
+        PageHelper.startPage(Integer.parseInt(dto.getPageNo()), Integer.parseInt(dto.getPageSize()));
+        return new PageInfo<>(restaurantMapper.queryFootList(dto));
     }
 }

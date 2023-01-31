@@ -4,6 +4,21 @@
 
 
     <select id="list" resultType="com.reservation.dto.bus.rest.BusRestListRespDTO">
-        select * from bus_rest
+        select *
+        from bus_rest
+    </select>
+
+    <select id="queryFootList" resultType="com.reservation.dto.bus.rest.BusRestShowFoodRespDTO">
+        select * from bus_food
+        <where>
+            <if test="dto.rid != null and dto.rid != ''">
+                and restid = #{dto.rid}
+            </if>
+
+            <if test="dto.fcid != null and dto.fcid != ''">
+                and fcid = #{dto.fcid}
+            </if>
+        </where>
+        order by order_number
     </select>
 </mapper>

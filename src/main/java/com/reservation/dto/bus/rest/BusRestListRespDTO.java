@@ -25,6 +25,8 @@ public class BusRestListRespDTO implements Serializable {
      */
     private String name;
 
+    private String picture;
+
     /**
      * 简介
      */
