@@ -11,7 +11,7 @@ import java.util.List;
 
 @Mapper
 public interface RestaurantMapper {
-    List<BusRestListRespDTO> list(BusRestListResDTO dto);
+    List<BusRestListRespDTO> list(@Param("dto") BusRestListResDTO dto);
 
     List<BusRestShowFoodRespDTO> queryFootList(@Param("dto") BusRestShowFoodResDTO dto);
 }

@@ -42,7 +42,7 @@ public class RestaurantController {
         return JsonResult.ok();
     }
 
-    @PostMapping("/changeStatus")
+    @PostMapping("/change/status")
     public JsonResult<String> changeStatus(@RequestBody @Validated BusRestChangeStatusResDTO dto) {
         restaurantService.changeStatus(dto);
         return JsonResult.ok();
