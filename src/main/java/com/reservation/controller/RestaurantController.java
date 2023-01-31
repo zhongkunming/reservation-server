@@ -22,18 +22,18 @@ public class RestaurantController {
 
     private final RestaurantService restaurantService;
 
-    @PostMapping("list")
+    @PostMapping("/list")
     public JsonResult<PageInfo<BusRestListRespDTO>> list(@RequestBody @Validated BusRestListResDTO dto) {
         return JsonResult.ok(restaurantService.list(dto));
     }
 
-    @PostMapping("add")
+    @PostMapping("/add")
     public JsonResult<String> add(@RequestBody @Validated BusRestAddResDTO dto) {
         restaurantService.add(dto);
         return JsonResult.ok();
     }
 
-    @PostMapping("edit")
+    @PostMapping("/edit")
     public JsonResult<String> edit(@RequestBody @Validated BusRestEditResDTO dto) {
         restaurantService.edit(dto);
         return JsonResult.ok();

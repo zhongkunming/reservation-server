@@ -55,7 +55,6 @@ public class MinioConfig {
 
     @PostConstruct
     private static void build() {
-        log.info("初始化 minio client");
         if (Objects.isNull(MinioConfig.client)) {
             MinioConfig.client = MinioClient.builder()
                     .endpoint(MinioConfig.host)
@@ -63,13 +62,12 @@ public class MinioConfig {
                     .build();
         }
         try {
-            log.info("检查bucket -> {} 状态", getBucket());
             boolean flag = getClient().bucketExists(BucketExistsArgs.builder().bucket(getBucket()).build());
             if (!flag) {
                 getClient().makeBucket(MakeBucketArgs.builder().bucket(getBucket()).build());
-                log.info("bucket -> {} 不存在，重新创建完成", getBucket());
+                log.info("bucket: {} nonexistence, recreating", getBucket());
             } else {
-                log.info("bucket -> {} 存在", getBucket());
+                log.info("bucket: {} have been in existence", getBucket());
             }
         } catch (Exception e) {
             throw new RuntimeException(e);

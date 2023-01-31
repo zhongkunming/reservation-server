@@ -45,9 +45,7 @@ public class RestaurantServiceImpl implements RestaurantService {
 
     @Override
     public void edit(BusRestEditResDTO dto) {
-        QueryWrapper<BusRest> wrapper = new QueryWrapper<>();
-        wrapper.eq(BusRest.COL_ID, dto.getId());
-        BusRest busRestInfo = busRestMapper.selectOne(wrapper);
+        BusRest busRestInfo = busRestMapper.selectById(dto.getId());
         if (Objects.isNull(busRestInfo)) {
             throw new AppException("餐厅" + dto.getName() + "不存在");
         }
